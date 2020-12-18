@@ -1,5 +1,5 @@
 # Platypus2
-Salut
+On va try de faire un truc de bg
 
 # Pour te connecter à Git
 - installe Git (pas GitHub, juste Git)
