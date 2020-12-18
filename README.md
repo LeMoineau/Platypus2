@@ -24,4 +24,4 @@ Yes ! Tu as maintenant les fichiers du projet actuel
   - git push -u origin nomDeTaBranche
 
 De base, on va dire que l'on doit push sur la branch "preprod", donc tu dois faire
-- git branch -M preprod
+- git branch preprod
