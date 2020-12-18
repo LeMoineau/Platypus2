@@ -18,23 +18,14 @@ var app = new Vue({
   router,
   el: '#app',
   data: {
-    articles: [],
-    users: {
-      userName: "none",
-      userId: -1,
-      userPerm: 0
-    },
-    selected: {
-      id: "",
-      title: "",
-      text: "",
-      image: "",
-      creator: ""
+    user: {
+      prenom: "pierrot",
+      nom: "le ouf",
+      icon: "https://images-na.ssl-images-amazon.com/images/I/51CDY-aeXvL._SX486_BO1,204,203,200_.jpg",
+      isRegistered: true
     }
   },
   async mounted () {
-    const res = await axios.get('/api/articles')
-    this.articles = res.data.message.rows
     await axios.post('/api/code')
   },
   methods: {

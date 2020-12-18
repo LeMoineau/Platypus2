@@ -1,4 +1,7 @@
-# Install
+# Install & Start
+
+- npm install
+- npm start
 
 # Pour te connecter à Git
 - installe Git (pas GitHub, juste Git)

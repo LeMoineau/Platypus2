@@ -10,8 +10,8 @@ var paiza_io = require('paiza-io')
 const client = new Client({
   user: 'postgres',
   host: 'localhost',
-  password: 'ZAZA92izi...',
-  database: 'TechWorld'
+  password: '123',
+  database: 'Platypus'
  })
 
  client.connect()
