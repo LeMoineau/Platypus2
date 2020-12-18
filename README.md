@@ -10,8 +10,8 @@
 - créer un dossier
 - fait clique-droit "Git Bash Here"
 - puis dans l'invite de commande tape les commandes suivantes:
-  - git init    **|** *fait de ton dossier un dossier pour git*
-  - git config --global user.name "TonNom"    **|** *tes infos jsp trop pq mais obligatoire*
+  - git init   > test **|** *fait de ton dossier un dossier pour git*
+  - `git config --global user.name` "TonNom" **|** *tes infos jsp trop pq mais obligatoire*
   - git config --global user.email "TonMail"
   - git remote add origin https://github.com/LeMoineau/Platypus2.git    **|** *te connecte au projet*
   - git pull origin main    **|** *télécharge / update les fichiers de ton dossier par ceux du projet branch main*
