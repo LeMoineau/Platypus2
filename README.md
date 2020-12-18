@@ -1,7 +1,7 @@
 # Platypus2
 Salut
 
-# Pour mettre dans git fait:
+# Pour te connecter à Git
 - installe Git (pas GitHub, juste Git)
 - créer un dossier
 - fait clique-droit "Git Bash Here"
