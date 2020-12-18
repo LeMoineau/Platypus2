@@ -20,7 +20,7 @@ Yes ! Tu as maintenant les fichiers du projet actuel
   - git remote add origin https://github.com/LeMoineau/Platypus2.git
   - git add .
   - git commit -m "description de ce que t'as fait"
-  (- git branch nomDeTaBranche)
+  - (git branch nomDeTaBranche)
   - git push -u origin nomDeTaBranche
 
 De base, on va dire que l'on doit push sur la branch "preprod", donc tu dois faire
