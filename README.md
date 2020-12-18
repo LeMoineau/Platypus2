@@ -7,7 +7,7 @@
 
 ## Pour te connecter à Git
 - installe Git (pas GitHub, juste Git)
-- créer un dossier sur ton ordi
+- créer un dossier sur ton ordi (sur le Bureau par ex)
 - fait clique-droit "Git Bash Here"
 - puis dans l'invite de commande tape les commandes suivantes:
   - `git init` **|** *fait de ton dossier un dossier pour git*
