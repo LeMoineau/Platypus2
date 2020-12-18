@@ -9,8 +9,8 @@ On va try de faire un truc de bg
   - git init
   - git config --global user.name "TonNom"
   - git config --global user.email "TonMail"
-  - git remote add origin https://
-  - git restore ./
+  - git remote add origin https://github.com/LeMoineau/Platypus2.git
+  - git restore ./ 
 Yes ! Tu as maintenant les fichiers du projet actuel
 
 # Pour ajouter des fichiers / les modifier
