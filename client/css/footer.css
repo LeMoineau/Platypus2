@@ -1,0 +1,16 @@
+
+footer {
+
+  height: var(--footer-height);
+  width: 100%;
+  background-color: #ff6348;
+  box-sizing: border-box;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: var(--padding-left-right);
+  padding-right: var(--padding-left-right);
+
+}

@@ -20,6 +20,8 @@
         <!-- Personal scripts and styles -->
         <link rel="stylesheet" href="css/global.css">
         <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/register.css">
     </head>
     <body>
         <div id="app">
@@ -30,8 +32,8 @@
             <nav id="header-nav">
               <router-link to="/" class="header-nav-button">Accueil</router-link>
               <router-link to="/editor" class="header-nav-button">S'entrainer</router-link>
-              <router-link v-if="!user.isRegistered" to="/editor" class="header-nav-button">Se connecter</router-link>
-              <router-link v-else to="/editor" class="header-nav-button">
+              <router-link v-if="!user.isRegistered" to="/register" class="header-nav-button">Se connecter</router-link>
+              <router-link v-else to="/profil" class="header-nav-button">
                 <span class="header-profil-name">{{ user.prenom }} {{ user.nom }}</span>
                 <div class="header-profil-icon" :style="{ backgroundImage: 'url(' + user.icon + ')' }"></div>
               </router-link>
@@ -43,6 +45,11 @@
               @add-article="addArticle"
             ></router-view>
           </main>
+          <footer>
+            <p><b>Nous contacter</b> pigeons voyageurs</p>
+            <p><b>Crédits</b> des étudiants très intelligents</p>
+            <p>powered by <b>Bigstones & dayebus dragibus</b></p>
+          </footer>
         </div>
         <script src="/vue-application.js"></script>
     </body>
