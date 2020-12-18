@@ -1,7 +1,7 @@
 # Platypus2
 Salut
 
-Pour mettre dans git fait:
+# Pour mettre dans git fait:
 - installe Git (pas GitHub, juste Git)
 - créer un dossier
 - fait clique-droit "Git Bash Here"
@@ -13,7 +13,7 @@ Pour mettre dans git fait:
   - git restore ./
 Yes ! Tu as maintenant les fichiers du projet actuel
 
-Pour ajouter des fichiers / les modifier
+# Pour ajouter des fichiers / les modifier
 - écrit ton code, fait tes bails sur ton éditeur préféré
 - une fois terminé tape les commandes suivantes
   - git remote add origin https://github.com/LeMoineau/Platypus2.git
