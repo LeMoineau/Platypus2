@@ -25,7 +25,10 @@ h1, h2, h3, input, button, a {
 :root {
 
   --header-height: 50px;
-  --footer-height: 50px;
   --padding-left-right: 20px;
+
+  --page-height: calc(100vh - var(--header-height));
+
+  --footer-height: 50px;
 
 }

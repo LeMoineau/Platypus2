@@ -15,7 +15,6 @@ header {
   padding-left: var(--padding-left-right);
   padding-right: var(--padding-left-right);
   box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
 
 }
 
@@ -26,6 +25,7 @@ header {
   justify-content: flex-end;
   align-items: center;
   height: 100%;
+  overflow: hidden;
 
 }
 
@@ -46,6 +46,7 @@ header {
   justify-content: center;
   width: fit-content;
   transform: scale(1);
+  cursor: pointer;
 
 }
 
@@ -60,22 +61,13 @@ header {
   margin: 0;
   padding: 0;
   transition: all 0.2s linear;
-  transform: rotateY(90deg) rotateX(90deg) rotateZ(0deg);
+  transform: translateY(-100%);
 
 }
 
 .header-nav-button:hover::before {
 
-  transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
-
-}
-
-.header-profil-name {
-
-  max-width: 150px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  transform: translateY(0);
 
 }
 
@@ -85,7 +77,6 @@ header {
   height: calc(var(--header-height) - 10px);
   border-radius: 100%;
   background-color: white;
-  margin-left: 20px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

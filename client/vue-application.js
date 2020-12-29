@@ -29,6 +29,8 @@ var app = new Vue({
     //await axios.post('/api/code')
   },
   methods: {
-
+    openProfilNav() {
+      document.querySelector("#header-profil-nav").classList.toggle("open");
+    }
   }
-})
+});
