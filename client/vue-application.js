@@ -4,6 +4,7 @@ const Login = window.httpVueLoader('./components/Login.vue')
 const Editor = window.httpVueLoader('./components/Editor.vue')
 
 const routes = [
+  { path: '/', component: Home},
   { path: '/home', component: Home},
   { path: '/register', component: Register },
   { path: '/login', component: Login },
