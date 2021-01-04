@@ -36,3 +36,16 @@ Pour se faire, tapes les commandes suivantes:
 - `git push -u origin nomDeTaBranch`    **|** *envoie tes dossier sur ta branche nouvellement créée*
 
 Voilà, maintenant t'es un pro de Git (ou presque) !
+
+## Forme de la base de donnée
+Sous: Postgresql
+Nom: IziCode
+Tables:
+- users: 
+  - `id`: serial 
+  - `login`: text
+  - `password`: text
+  - `prénom`: text
+  - `nom`: text 
+  - `icon`: text
+  - `perm`: integer 
