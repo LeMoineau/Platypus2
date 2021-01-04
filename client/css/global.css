@@ -24,11 +24,23 @@ h1, h2, h3, input, button, a {
 
 :root {
 
+  --main-color: #ff6348;
   --header-height: 50px;
   --padding-left-right: 20px;
 
   --page-height: calc(100vh - var(--header-height));
 
   --footer-height: 50px;
+
+}
+
+.centered-container {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
 
 }

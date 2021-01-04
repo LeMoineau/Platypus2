@@ -3,7 +3,7 @@ footer {
 
   height: var(--footer-height);
   width: 100%;
-  background-color: #ff6348;
+  background-color: var(--main-color);
   box-sizing: border-box;
   color: white;
   display: flex;

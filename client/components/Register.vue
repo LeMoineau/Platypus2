@@ -1,12 +1,13 @@
 <template>
-    <div id="register-container">
-      <div class="register-subcontainer">
-
-      </div>
-      <div class="register-subcontainer">
-
-      </div>
-    </div>
+  <div class="centered-container">
+    <form id="register-container">
+      <label for="login"> Login </label>
+      <input type="text" name="login" value="" required>
+      <label for="password"> Mot de passe </label>
+      <input type="password" name="password" value="" required>
+      <input type="submit" name="" value="Connexion">
+    </form>
+  </div>
 </template>
 
 <script>
