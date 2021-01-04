@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const articles = require('../data/articles.js')
 const bcrypt = require('bcrypt')
 const { Client } = require('pg')
 const { Store } = require('express-session')
@@ -10,8 +9,8 @@ var paiza_io = require('paiza-io')
 const client = new Client({
   user: 'postgres',
   host: 'localhost',
-  password: '123',
-  database: 'Platypus'
+  password: 'ZAZA92izi...',
+  database: 'IziCode'
  })
 
  client.connect()
@@ -24,18 +23,13 @@ router.post("/code", async (req, res) => {
         console.log(result.stdout); //=> Hello, Python World!
       });
 })
-/**
- * Dans ce fichier, vous trouverez des exemples de requêtes GET, POST, PUT et DELETE
- * Ces requêtes concernent l'ajout ou la suppression d'articles sur le site
- * Votre objectif est, en apprenant des exemples de ce fichier, de créer l'API pour le panier de l'utilisateur
- *
- * Notre site ne contient pas d'authentification, ce qui n'est pas DU TOUT recommandé.
- * De même, les informations sont réinitialisées à chaque redémarrage du serveur, car nous n'avons pas de système de base de données pour faire persister les données
- */
 
 router.post("/register", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  const name = req.body.name;
+  const surname = req.body.surname;
+
 
   check(email).then((resultat) => {
 
@@ -45,19 +39,16 @@ router.post("/register", async (req, res) => {
 
         client.query({
 
-          text: "INSERT INTO users (email,password) VALUES($1,$2)",
-          values: [email, hashPassword]
+          text: "INSERT INTO users (email,password,name,surname) VALUES($1,$2,$3,$4)",
+          values: [email, hashPassword, name, surname]
 
         });
       })
 
       res.json({ message: "Registed" });
-      console.log("coucou")
     }
     else {
       res.json({ message: "Error" });
-      console.log("écrit bien le sang")
-
       return;
     }
   });
@@ -72,13 +63,13 @@ async function check(email) {
   })
 }
 
-async function checkAdmin(id) {
-  const sql = "SELECT perm FROM users WHERE id=$1";
-  return await client.query({
-    text: sql,
-    values: [id],
-  })
-}
+// async function checkAdmin(id) {
+//   const sql = "SELECT perm FROM users WHERE id=$1";
+//   return await client.query({
+//     text: sql,
+//     values: [id],
+//   })
+// }
 
 router.post("/login", async (req, res) => {
   const email = req.body.email;
@@ -146,10 +137,6 @@ router.get("/name", async (req, res) => {
   })
 })
 
-/*
- * Cette route doit permettre de confirmer un panier, en recevant le nom et prénom de l'utilisateur
- * Le panier est ensuite supprimé grâce à req.session.destroy()
- */
 function CheckCo(req){
   if(req.session.userId !== undefined && req.session.userId !== -1){
     return true
@@ -159,112 +146,9 @@ function CheckCo(req){
   }
 }
 
+router.get("/change", async (req, res) => {
 
-
-/**
- * Cette route envoie l'intégralité des articles du site
- */
-router.get('/articles', async (req, res) => {
-
-  const sql = "SELECT * FROM articles"
-  return await client.query({
-
-    text: sql
-
-  }).then( async (result) =>{
-
-    res.json({message : result})
-
-  })
-
-
-})
-
-/**
- * Cette route crée un article.
- * WARNING: dans un vrai site, elle devrait être authentifiée et valider que l'utilisateur est bien autorisé
- * NOTE: lorsqu'on redémarre le serveur, l'article ajouté disparait
- *   Si on voulait persister l'information, on utiliserait une BDD (mysql, etc.)
- */
-
-router.get('/article/:articleId', async (req, res) => {
-
-  const articleId = req.params.articleId;
-  client.query({
-    text: "SELECT * FROM articles WHERE id=$1",
-    values: [articleId]
-  }).then( async (result) => {
-
-    res.json({ message: result })
-
-  })
-
-});
-
-router.post('/article', (req, res) => {
-  const texte = req.body.text;
-  const titre = req.body.title;
-  const ima = req.body.image;
-  const crea = req.body.creator;
-
-  client.query({
-
-    text: "INSERT INTO articles (text,title,image,creator) VALUES($1,$2,$3,$4)",
-    values: [texte, titre, ima, crea]
-
-  }).then( async (result) =>{
-
-    client.query({
-
-      text: "SELECT * FROM articles ORDER BY ID DESC LIMIT 1",
-
-    }).then( async (result) =>{
-
-      console.log(result.rows.id)
-      res.json({ id: result.rows[0].id, text: texte, title: titre, image: ima, creator: crea});
-
-    })
-  })
-
-})
-
-router.put('/article', (req, res) => {
-
-  const article = {
-    id: req.body.id,
-    title: req.body.title,
-    text: req.body.text,
-    image: req.body.image,
-    creator: req.body.creator
-  };
-
-  client.query({
-
-    text: "UPDATE articles SET title=$1, text=$2, image=$3, creator=$4 WHERE id=$5",
-    values: [article.title, article.text, article.image, article.creator, article.id]
-
-  }).then( async (result) => {
-
-    res.json({ message: `article ${article.id} successfully edited` });
-
-  })
-
-})
-
-router.delete('/article/:articleId', (req, res) => {
-
-  const articleId = req.params.articleId;
-  client.query({
-
-    text: "DELETE FROM articles WHERE id=$1",
-    values: [articleId]
-
-  }).then( async(result) => {
-
-      res.json({ message: `article #${articleId} a bien été deleted` })
-
-  })
-
+  const sql = "SELECT email, from users WHERE id=$1"
 })
 
 module.exports = router
