@@ -38,16 +38,14 @@ Pour se faire, tapes les commandes suivantes:
 Voilà, maintenant t'es un pro de Git (ou presque) !
 
 ## Forme de la base de donnée
-Sous: Postgresql
-
-Nom: IziCode
-
-Tables:
-- users: 
-  - `id`: serial 
-  - `login`: text
-  - `password`: text
-  - `prénom`: text
-  - `nom`: text 
-  - `icon`: text
-  - `perm`: integer 
+- Sous: Postgresql
+- Nom: IziCode
+- Tables:
+  - users: 
+    - `id`: serial 
+    - `login`: text
+    - `password`: text
+    - `prénom`: text
+    - `nom`: text 
+    - `icon`: text
+    - `perm`: integer 
