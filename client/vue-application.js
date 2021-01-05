@@ -44,7 +44,6 @@ var app = new Vue({
     async me(callback) {
       const res = await axios.get('/api/me');
       const result = res.data.result;
-      console.log(result);
       this.isRegistered = (res.data.result.status === 1);
       if (result.status === 1) {
         this.user = result.user;
@@ -52,6 +51,9 @@ var app = new Vue({
       if (callback !== undefined) {
         callback(result);
       }
+    },
+    async disconnect() {
+      axios.delete('/api/disconnect/');
     }
   }
 });

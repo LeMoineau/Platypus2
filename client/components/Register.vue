@@ -55,6 +55,10 @@ module.exports = {
     if (this.$route.query.mode !== undefined) {
         this.mode = this.$route.query.mode;
     }
+    if (this.mode === "disconnect") {
+      this.$emit('disconnect');
+    }
+    this.$emit('me');
   },
   methods: {
       register() {

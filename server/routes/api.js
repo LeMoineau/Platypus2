@@ -176,44 +176,15 @@ router.get("/me", async (req, res) => {
 
 })
 
-router.get("/perm", async (req, res) => {
+router.delete("/disconnect/", (req, res) => {
 
-  const sql = "SELECT perm FROM users WHERE id=$1"
-  return await client.query({
-    text: sql,
-    values: [req.session.userId]
-  }).then( (result) => {
-
-    res.json({message: result})
-
+  req.session.userId = -1;
+  res.json({
+    result: {
+      status: 1
+    }
   })
-})
 
-router.get("/name", async (req, res) => {
-
-  const sql = "SELECT email FROM users WHERE id=$1"
-  return await client.query({
-    text: sql,
-    values: [req.session.userId]
-  }).then( (result) => {
-
-    res.json({message: result})
-
-  })
-})
-
-function CheckCo(req){
-  if(req.session.userId !== undefined && req.session.userId !== -1){
-    return true
-  } else {
-    return false
-
-  }
-}
-
-router.get("/change", async (req, res) => {
-
-  const sql = "SELECT email, from users WHERE id=$1"
 })
 
 module.exports = router

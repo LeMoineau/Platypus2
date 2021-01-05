@@ -44,10 +44,12 @@
             <div id="header-profil-nav">
               <p class="header-profil-nav-title"> {{ user.prenom }} {{ user.nom }} </p>
               <hr class="header-profil-nav-separator">
-              <router-link to="/profil" class="header-profil-nav-button"> Mon profil</router-link>
-              <router-link to="/profil" class="header-profil-nav-button"> Historique</router-link>
-              <router-link to="/profil" class="header-profil-nav-button"> Paramètres</router-link>
-              <router-link to="/profil" class="header-profil-nav-button"> Se déconnecter</router-link>
+              <div class="header-profil-nav-container" @click="openProfilNav()">
+                <router-link to="/profil" class="header-profil-nav-button"> Mon profil</router-link>
+                <router-link to="/profil" class="header-profil-nav-button"> Historique</router-link>
+                <router-link to="/profil" class="header-profil-nav-button"> Paramètres</router-link>
+                <router-link to="/register?mode=disconnect" class="header-profil-nav-button"> Se déconnecter</router-link>
+              </div>
             </div>
           </header>
           <main>
@@ -56,6 +58,7 @@
               @register="register"
               @login="login"
               @me="me"
+              @disconnect="disconnect"
             ></router-view>
           </main>
           <footer>
