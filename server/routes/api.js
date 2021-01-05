@@ -5,15 +5,15 @@ const { Client } = require('pg')
 const { Store } = require('express-session')
 var paiza_io = require('paiza-io')
 
-
+const default_icon = 'http://getdrawings.com/free-icon/funny-avatars-icons-51.jpg'
 const client = new Client({
   user: 'postgres',
   host: 'localhost',
-  password: 'ZAZA92izi...',
+  password: '123',
   database: 'IziCode'
  })
 
- client.connect()
+client.connect()
 
 
 router.post("/code", async (req, res) => {
@@ -25,69 +25,100 @@ router.post("/code", async (req, res) => {
 })
 
 router.post("/register", async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  const name = req.body.name;
-  const surname = req.body.surname;
+  const user = req.body.user;
 
+  client.query({
 
-  check(email).then((resultat) => {
+    text: "SELECT * FROM users WHERE login=$1",
+    values: [user.login]
 
-    if (resultat.rowCount === 0) {
+  }).then(async (result) => {
 
-      bcrypt.hash(password, 10).then(hashPassword => {
-
+    if (result.rowCount <= 0) {
+      bcrypt.hash(user.mdp, 10).then((hashPassword) => {
         client.query({
 
-          text: "INSERT INTO users (email,password,name,surname) VALUES($1,$2,$3,$4)",
-          values: [email, hashPassword, name, surname]
+          text: "INSERT INTO users (login, password, prenom, nom, icon, perm) VALUES ($1, $2, $3, $4, $5, $6)",
+          values: [user.login, hashPassword, user.prenom, user.nom, default_icon, 0]
 
-        });
+        }).then(async () => {
+
+          res.json({ result: {
+              status: 1,
+              errormessage: ""
+            }
+          })
+
+        })
+      })
+    } else {
+
+      res.json({ result: {
+          status: 0,
+          errormessage: "Ce login est déjà prit :/"
+        }
       })
 
-      res.json({ message: "Registed" });
     }
-    else {
-      res.json({ message: "Error" });
-      return;
-    }
-  });
+  })
 
 });
 
-async function check(email) {
-  const sql = "SELECT * FROM users WHERE email=$1";
-  return await client.query({
-    text: sql,
-    values: [email], // ici name et description ne sont pas concaténées à notre requête
-  })
-}
-
-// async function checkAdmin(id) {
-//   const sql = "SELECT perm FROM users WHERE id=$1";
-//   return await client.query({
-//     text: sql,
-//     values: [id],
-//   })
-// }
-
 router.post("/login", async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const user = req.body.user;
 
-  check(email).then(async (resultat) => {
-    if (resultat.rowCount >= 1) {
-      let resu = resultat.rows[0]
-      if (await bcrypt.compare(password,resu.password)){
+  client.query({
+
+    text: "SELECT * FROM users WHERE login=$1",
+    values: [user.login]
+
+  }).then(async (result) => {
+
+    if (result.rowCount >= 1) {
+
+      let resu = result.rows[0]
+      if (await bcrypt.compare(user.mdp, resu.password)){
+
         if (req.session.userId === resu.id) {
-          res.json({message: "AlreadyConnected", userId: resu.id})
+
+          res.json({
+            result: {
+              status: 2,
+              errormessage: "Vous êtes déjà connecté"
+            }
+          })
+
         } else {
+
           req.session.userId = resu.id
-          res.json({message: "Connected", userId: resu.id})
+          res.json({
+            result: {
+              status: 1,
+              errormessage: ""
+            }
+          })
+
         }
       } else {
-        res.json({ message: "PasswordForget", userId: -1 })
+
+        res.json({
+          result: {
+            status: 0,
+            errormessage: "Mot de passe incorrect"
+          }
+        })
+
       }
+
+    } else {
+
+      res.json({
+        result: {
+          status: 0,
+          errormessage: "Ce login nous est inconnu"
+        }
+      })
+
     }
   })
 })
@@ -100,13 +131,47 @@ router.post("/disconnect", (req, res) => {
 });
 
 router.get("/me", async (req, res) => {
-  if(CheckCo(req)){
 
-    res.json({message: req.session.userId})
+  if (req.session.userId !== undefined && req.session.userId !== -1) {
 
-  }
-  else{
-    res.json({message: -1})
+    client.query({
+
+      text: "SELECT login, prenom, nom, icon, perm FROM users WHERE id=$1",
+      values: [req.session.userId]
+
+    }).then(async (result) => {
+
+      if (result.rowCount >= 1) {
+
+        res.json({
+          result: {
+            status: 1,
+            user: result.rows[0]
+          }
+        })
+
+      } else {
+
+        res.json({
+          result: {
+            status: 0,
+            errormessage: "ID incorrect"
+          }
+        })
+
+      }
+
+    })
+
+  } else {
+
+    res.json({
+      result: {
+        status: 0,
+        errormessage: "Vous n'êtes pas authentifié"
+      }
+    })
+
   }
 
 })

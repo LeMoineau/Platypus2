@@ -20,12 +20,11 @@
 <script>
 module.exports = {
   props: {
-    articles: { type: Array, default: [] },
-    users: { type: Object, default: () => {
+    user: { type: Object, default: () => {
         return {
-          userName: "none",
-          userId: -1,
-          userPerm: 0
+          prenom: "pierrot",
+          nom: "le ouf",
+          icon: "https://images-na.ssl-images-amazon.com/images/I/51CDY-aeXvL._SX486_BO1,204,203,200_.jpg"
         }
       }
     }
@@ -36,42 +35,10 @@ module.exports = {
     }
   },
   async mounted() {
-    this.$emit('check-perm', (response) => {
-      this.newArticle.title = response.title;
-    });
+    this.$emit('me');
   },
   methods: {
-    alreadyBuy(articleId) {
-      return this.panier.articles.some( e => e.id == articleId )
-    },
-    removeFromPanier(articleId) {
-      this.$emit('remove-from-panier', articleId)
-    },
-    addArticle () {
-      this.$emit('add-article', this.newArticle)
-    },
-    deleteArticle (articleId) {
-      this.$emit('delete-article', articleId)
-    },
-    editArticle (articleId) {
-      location.replace("#/updateArticle?id=" + articleId);
-    },
-    sendEditArticle () {
-      this.$emit('update-article', this.editingArticle)
-      this.abortEditArticle()
-    },
-    abortEditArticle () {
-      this.editingArticle = {
-        id: -1,
-        name: '',
-        description: '',
-        image: '',
-        price: 0
-      }
-    },
-    openArticle(articleId){
-      location.replace("#/ArticleView?id=" + articleId)
-    }
+
   }
 }
 </script>

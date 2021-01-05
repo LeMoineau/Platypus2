@@ -1,20 +1,108 @@
 
-#register-container {
+#register-global-container {
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 50px;
-  background-color: white;
-  border-radius: 5px;
-  width: fit-content;
-  padding: 50px;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: var(--page-height);
+  height: auto;
 
 }
 
-#register-container input {
+.register-subcontainer {
+
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 300px;
+  margin-top: 20px;
+
+}
+
+.register-subcontainer input {
 
   margin: 10px;
+  padding: 10px;
+  font-size: 17px;
+  width: 100%;
+  border-radius: 5px;
+  border: solid 1px grey;
+  background-color: transparent;
+  outline: none;
+  box-sizing: border-box;
+
+}
+
+.register-subcontainer input:focus {
+
+  border: solid 2px #7bed9f;
+
+}
+
+.register-subcontainer input[type="submit"] {
+
+  background-color: #ff7f50;
+  color: white;
+  font-size: 17px;
+  border-color: white;
+  cursor: pointer;
+  transition: all 0.1s linear;
+  margin-top: 15px;
+
+}
+
+.register-subcontainer input[type="submit"]:hover {
+
+  background-color: #ff6348;
+
+}
+
+.register-subcontainer p {
+
+  margin: 0;
+  cursor: pointer;
+
+}
+
+.register-subcontainer-title {
+
+  font-size: 30px;
+  margin: 10px;
+  margin-bottom: 20px;
+
+}
+
+.register-subcontainer-line {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.register-subcontainer-line *:first-child {
+
+  margin-left: 0;
+
+}
+
+.register-subcontainer-line *:last-child {
+
+  margin-right: 0;
+
+}
+
+.register-errormessage {
+
+  color: red;
+  font-size: 17px;
 
 }

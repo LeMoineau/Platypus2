@@ -36,7 +36,7 @@
             <nav id="header-nav">
               <router-link to="/" class="header-nav-button">Accueil</router-link>
               <router-link to="/editor" class="header-nav-button">S'entrainer</router-link>
-              <router-link v-if="!user.isRegistered" to="/register" class="header-nav-button">Se connecter</router-link>
+              <router-link v-if="!isRegistered" to="/register" class="header-nav-button">Se connecter</router-link>
               <div v-else class="header-nav-button" @click="openProfilNav()">
                 <div class="header-profil-icon" :style="{ backgroundImage: 'url(' + user.icon + ')' }"></div>
               </div>
@@ -52,8 +52,10 @@
           </header>
           <main>
             <router-view
-              :articles="articles"
-              @add-article="addArticle"
+              :user="user"
+              @register="register"
+              @login="login"
+              @me="me"
             ></router-view>
           </main>
           <footer>

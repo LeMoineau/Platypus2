@@ -22,16 +22,36 @@ var app = new Vue({
     user: {
       prenom: "pierrot",
       nom: "le ouf",
-      icon: "https://images-na.ssl-images-amazon.com/images/I/51CDY-aeXvL._SX486_BO1,204,203,200_.jpg",
-      isRegistered: false
-    }
+      icon: "https://images-na.ssl-images-amazon.com/images/I/51CDY-aeXvL._SX486_BO1,204,203,200_.jpg"
+    },
+    isRegistered: false
   },
   async mounted () {
-    //await axios.post('/api/code')
+    this.$emit("me");
   },
   methods: {
     openProfilNav() {
       document.querySelector("#header-profil-nav").classList.toggle("open");
+    },
+    async register(user, callback) {
+      const res = await axios.post('/api/register' , {user: user});
+      callback(res.data.result);
+    },
+    async login(user, callback) {
+      const res = await axios.post('/api/login' , {user: user});
+      callback(res.data.result);
+    },
+    async me(callback) {
+      const res = await axios.get('/api/me');
+      const result = res.data.result;
+      console.log(result);
+      this.isRegistered = (res.data.result.status === 1);
+      if (result.status === 1) {
+        this.user = result.user;
+      }
+      if (callback !== undefined) {
+        callback(result);
+      }
     }
   }
 });

@@ -1,7 +1,7 @@
 <template>
    <div class ="main">
        <div class="conta">
-           <form  v-on:submit.prevent="login(name, pw)">
+           <form v-on:submit.prevent="login(name, pw)">
                <div class="title">
                    <h2>Connexion</h2>
                </div>
