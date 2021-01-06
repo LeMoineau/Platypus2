@@ -1,14 +1,19 @@
 const Home = window.httpVueLoader('./components/Home.vue')
 const Register = window.httpVueLoader('./components/Register.vue')
-const Login = window.httpVueLoader('./components/Login.vue')
 const Editor = window.httpVueLoader('./components/Editor.vue')
+const ProfilLayout = window.httpVueLoader('./components/ProfilLayout.vue')
+const Profil = window.httpVueLoader('./components/profilPanels/Profil.vue')
+const Parametres = window.httpVueLoader('./components/profilPanels/Parametres.vue')
+
+Vue.component("profil-panel", Profil);
+Vue.component("parametres-panel", Parametres);
 
 const routes = [
   { path: '/', component: Home},
   { path: '/home', component: Home},
   { path: '/register', component: Register },
-  { path: '/login', component: Login },
-  { path: '/editor', component: Editor }
+  { path: '/editor', component: Editor },
+  { path: '/profil', component: ProfilLayout }
 ]
 
 const router = new VueRouter({
@@ -22,6 +27,8 @@ var app = new Vue({
     user: {
       prenom: "pierrot",
       nom: "le ouf",
+      login: "c'est un mystere",
+      perm: 0,
       icon: "https://images-na.ssl-images-amazon.com/images/I/51CDY-aeXvL._SX486_BO1,204,203,200_.jpg"
     },
     isRegistered: false
@@ -32,6 +39,7 @@ var app = new Vue({
   methods: {
     openProfilNav() {
       document.querySelector("#header-profil-nav").classList.toggle("open");
+      document.querySelector("#header-profil-hider").classList.toggle("open");
     },
     async register(user, callback) {
       const res = await axios.post('/api/register' , {user: user});
@@ -54,6 +62,13 @@ var app = new Vue({
     },
     async disconnect() {
       axios.delete('/api/disconnect/');
+      this.user = {
+        prenom: "pierrot",
+        nom: "le ouf",
+        login: "c'est un mystere",
+        perm: 0,
+        icon: "https://images-na.ssl-images-amazon.com/images/I/51CDY-aeXvL._SX486_BO1,204,203,200_.jpg"
+      }
     }
   }
 });

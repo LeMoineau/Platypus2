@@ -12,5 +12,6 @@ footer {
   align-items: center;
   padding-left: var(--padding-left-right);
   padding-right: var(--padding-left-right);
+  z-index: 20;
 
 }

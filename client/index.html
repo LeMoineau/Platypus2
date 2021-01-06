@@ -25,6 +25,9 @@
         <link rel="stylesheet" href="css/header/header-profil.css">
         <link rel="stylesheet" href="css/home/home.css">
         <link rel="stylesheet" href="css/register/register.css">
+        <link rel="stylesheet" href="css/profil/profilLayout.css">
+        <link rel="stylesheet" href="css/profil/profil.css">
+        <link rel="stylesheet" href="css/profil/panel.css">
         <link rel="stylesheet" href="css/footer.css">
     </head>
     <body>
@@ -45,12 +48,13 @@
               <p class="header-profil-nav-title"> {{ user.prenom }} {{ user.nom }} </p>
               <hr class="header-profil-nav-separator">
               <div class="header-profil-nav-container" @click="openProfilNav()">
-                <router-link to="/profil" class="header-profil-nav-button"> Mon profil</router-link>
-                <router-link to="/profil" class="header-profil-nav-button"> Historique</router-link>
-                <router-link to="/profil" class="header-profil-nav-button"> Paramètres</router-link>
+                <router-link to="/profil" class="header-profil-nav-button">Mon profil</router-link>
+                <router-link v-if="user.perm >= 1" to="/profil" class="header-profil-nav-button">Créer un exercice</router-link>
+                <router-link to="/parametres" class="header-profil-nav-button">Paramètres</router-link>
                 <router-link to="/register?mode=disconnect" class="header-profil-nav-button"> Se déconnecter</router-link>
               </div>
             </div>
+            <div id="header-profil-hider" @click="openProfilNav()"></div>
           </header>
           <main>
             <router-view

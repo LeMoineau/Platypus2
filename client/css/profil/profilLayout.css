@@ -1,0 +1,86 @@
+
+#profil-global-container {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: var(--page-height);
+  min-height: var(--page-height);
+
+}
+
+#profil-nav {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  width: 280px;
+  height: 100%;
+  padding: 30px;
+  background-color: rgba(226, 230, 231, 1.0);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+
+}
+
+.profil-nav-button {
+
+  outline: none;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 17px;
+  background-color: transparent;
+  border-radius: 40px;
+  cursor: pointer;
+  transform: translate(0);
+  margin-top: 20px;
+  text-decoration: none;
+  text-align: center;
+  color: black;
+
+}
+
+.profil-nav-button:hover, .selected:hover {
+
+  background-color: rgba(206, 210, 211, 0.7);
+
+}
+
+.selected {
+
+  background-color: rgba(196, 200, 201, 0.7);
+
+}
+
+.profil-nav-button::before {
+
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  content: '';
+  border-radius: 100%;
+  background-color: var(--main-color);
+  width: 0;
+  height: 0;
+  transition: width 0.2s linear, height 0.2s linear;
+
+}
+
+.profil-nav-button.selected::before {
+
+  width: 15px;
+  height: 15px;
+
+}
+
+.profil-nav-button.selected:hover::before {
+
+  background-color: rgba(255, 127, 80,1.0);
+
+}
