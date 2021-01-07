@@ -1,16 +1,6 @@
 <template>
-  <div id="profil-sub-global-container">
-    <div id="profil-sub-header">
-      <div class="profil-sub-icon" :style="{ backgroundImage: 'url(' + user.icon + ')' }">
-
-      </div>
-      <div class="profil-sub-infos">
-        <h1> {{ user.prenom }} {{ user.nom }} </h1>
-        <h2> {{ user.login }} </h2>
-        <p v-if="user.perm === 0"> Etudiant </p>
-        <p v-if="user.perm === 1"> Professeur </p>
-      </div>
-    </div>
+  <div id="exercice-creator-global-container">
+    <h1>Tutoriel</h1>
     <hr class="profil-separator">
   </div>
 </template>

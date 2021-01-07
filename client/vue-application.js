@@ -1,18 +1,26 @@
 const Home = window.httpVueLoader('./components/Home.vue')
 const Register = window.httpVueLoader('./components/Register.vue')
 const Editor = window.httpVueLoader('./components/Editor.vue')
+const ExoHome = window.httpVueLoader('./components/ExoHome.vue')
 const ProfilLayout = window.httpVueLoader('./components/ProfilLayout.vue')
 const Profil = window.httpVueLoader('./components/profilPanels/Profil.vue')
 const Parametres = window.httpVueLoader('./components/profilPanels/Parametres.vue')
+const ExerciceCreator = window.httpVueLoader('./components/profilPanels/ExerciceCreator.vue')
+const ExerciceCreatorLine = window.httpVueLoader('./components/profilPanels/ExerciceCreatorLine.vue')
+const ExerciceTutoriel = window.httpVueLoader('./components/profilPanels/ExerciceTutoriel.vue')
 
 Vue.component("profil-panel", Profil);
 Vue.component("parametres-panel", Parametres);
+Vue.component("exercice-creator-panel", ExerciceCreator);
+Vue.component("exercice-creator-line", ExerciceCreatorLine);
+Vue.component("exercice-tutoriel-panel", ExerciceTutoriel);
 
 const routes = [
   { path: '/', component: Home},
   { path: '/home', component: Home},
   { path: '/register', component: Register },
   { path: '/editor', component: Editor },
+  { path: '/exohome', component: ExoHome },
   { path: '/profil', component: ProfilLayout }
 ]
 
@@ -69,6 +77,15 @@ var app = new Vue({
         perm: 0,
         icon: "https://images-na.ssl-images-amazon.com/images/I/51CDY-aeXvL._SX486_BO1,204,203,200_.jpg"
       }
+    },
+    async createxercice(exercice, callback) {
+      if (exercice.anonym) {
+        exercice.creator = "Anonym"
+      } else {
+        exercice.creator = this.user.prenom + " " + this.user.nom;
+      }
+      const res = await axios.post('/api/exercice', { exercice: exercice });
+      callback(res.data.result);
     }
   }
 });

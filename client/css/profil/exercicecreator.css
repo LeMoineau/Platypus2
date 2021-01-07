@@ -1,0 +1,205 @@
+
+#exercice-creator-global-container {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+
+}
+
+#exercice-creator-header-bar {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+
+}
+
+#exercice-creator-title {
+
+  border: none;
+  font-size: 25px;
+  background-color: none;
+  border-bottom: solid 1px black;
+  width: 250px;
+  text-align: center;
+  outline: none;
+  margin: 10px;
+
+}
+
+#exercice-creator-anonym {
+
+  margin: 10px;
+  margin-right: 110px;
+  transform: translate(0);
+
+}
+
+#exercice-creator-anonym::after {
+
+  content: "Exercice anonym";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: fit-content;
+  white-space: nowrap;
+
+}
+
+#exercice-creator-difficulty {
+
+  margin: 10px;
+  margin-bottom: 30px;
+  transform: translate(0);
+
+}
+
+#exercice-creator-difficulty::after {
+
+  content: "Difficulté (0 = facile / 5 = dur)";
+  position: absolute;
+  left: 50%;
+  bottom: -25px;
+  transform: translateX(-50%);
+  width: fit-content;
+  white-space: nowrap;
+
+}
+
+#exercice-creator-langage {
+
+  text-align: center;
+  padding: 5px;
+  font-size: 15px;
+  border: none;
+  background-color: rgba(206, 210, 211, 0.7);
+  border-radius: 5px;
+  outline: none;
+
+}
+
+#exercice-creator-table {
+
+  text-align: left;
+  align-items: baseline;
+  table-layout: fixed;
+  width: 100%;
+
+}
+
+#exercice-creator-table td {
+
+  vertical-align: top;
+  height: 100%;
+
+}
+
+#exercice-creator-table tr {
+
+  margin-top: 10px;
+
+}
+
+#exercice-creator-table tr > td:first-child {
+
+  width: 150px;
+  border-right: solid 2px red;
+  text-align: right;
+  box-sizing: border-box;
+  padding-right: 10px;
+
+}
+
+#exercice-creator-table tr > td.title:first-child { border-right-color: #f1c40f; }
+#exercice-creator-table tr > td.subtitle:first-child { border-right-color: #1abc9c; }
+#exercice-creator-table tr > td.text:first-child { border-right-color: #9b59b6; }
+
+#exercice-creator-table tr > td:not(:first-child) {
+
+  width: calc(100% - 100px);
+
+}
+
+#exercice-creator-table input, #exercice-creator-table textarea {
+
+  border: none;
+  outline: none;
+  width: 100%;
+  min-height: 60px;
+  max-width: 100%;
+
+}
+
+.exercice-creator-select {
+
+  padding: 10px;
+  border-radius: 40px;
+  font-size: 14px;
+  background-color: rgba(206, 210, 211, 0.7);
+  border: none;
+  outline: none;
+  margin: 10px;
+  text-align: right;
+
+}
+
+.exercice-creator-h1 {
+
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+.exercice-creator-h2 {
+
+  font-size: 17px;
+
+}
+
+.exercice-creator-text {
+
+  font-size: 15px;
+
+}
+
+#exercice-creator-valid-bar {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+
+}
+
+.exercice-creator-valid-button {
+
+  border-radius: 40px;
+  padding: 10px 30px;
+  border: none;
+  font-size: 15px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  outline: none;
+  margin: 10px;
+  color: white;
+
+}
+
+#exercice-creator-add-line-button { background-color: #70a1ff; }
+#exercice-creator-add-line-button:hover { background-color: #1e90ff; }
+#exercice-creator-remove-line-button { background-color: #a4b0be; }
+#exercice-creator-remove-line-button:hover { background-color: #747d8c; }
+#exercice-creator-validation-button { background-color: #ff7f50; }
+#exercice-creator-validation-button:hover { background-color: #ff6348; }

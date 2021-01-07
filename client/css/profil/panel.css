@@ -5,15 +5,3 @@
   height: 100%;
 
 }
-
-.panel {
-
-  display: none;
-
-}
-
-.panel.open {
-
-  display: initial;
-
-}

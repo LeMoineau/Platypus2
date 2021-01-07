@@ -1,22 +1,29 @@
 <template>
   <div id="profil-global-container">
     <nav id="profil-nav">
-      <button id="profil-button" class="profil-nav-button selected" @click="select('profil-button')">
+      <button id="profil-button" class="profil-nav-button selected" @click="openPanel('profil-button')">
         Votre Profil
       </button>
-      <button id="parametres-button" class="profil-nav-button" @click="select('parametres-button')">
+      <button id="parametres-button" class="profil-nav-button" @click="openPanel('parametres-button')">
         Paramètres
       </button>
-      <button v-if="user.perm >= 1" id="exercices-button" class="profil-nav-button" @click="select('exercices-button')">
+      <button v-if="user.perm >= 1" id="exercices-button" class="profil-nav-button" @click="openSubnav('exercices-button')">
         Créer un exercice
       </button>
+        <nav id="exercices-button-nav" class="profil-nav-subnav">
+          <button id="exercices-tuto-button" class="profil-subnav-button" @click="subOpenPanel('exercices-tuto-button')">
+            Tutoriel de création
+          </button>
+          <button id="exercices-creator-button" class="profil-subnav-button" @click="subOpenPanel('exercices-creator-button')">
+            Exercice Creator
+          </button>
+        </nav>
       <router-link to="/register?mode=disconnect" class="profil-nav-button">
         Se déconnecter
       </router-link>
     </nav>
     <div id="current-panel">
-      <profil-panel id="profil-panel" v-bind:user="user" class="panel open"></profil-panel>
-      <parametres-panel id="parametres-panel" v-bind:user="user" class="panel"></parametres-panel>
+      <component v-bind:is="currentPanel" v-bind:user="user"></component>
     </div>
   </div>
 </template>
@@ -35,31 +42,45 @@ module.exports = {
   },
   data () {
     return {
-      panelAssociated: {
+      buttonsLink: {
         "profil-button": "profil-panel",
-        "parametres-button": "parametres-panel"
+        "parametres-button": "parametres-panel",
+        "exercices-button": "exercices-button-nav",
+        "exercices-tuto-button": "exercice-tutoriel-panel",
+        "exercices-creator-button": "exercice-creator-panel"
       },
+      currentPanel: "profil-panel"
     }
   },
   mounted() {
     this.$emit('me');
+    setTimeout(() => {
+      if (this.$route.query.panel === "exercicecreator") {
+        this.openSubnav("exercices-button");
+        this.subOpenPanel("exercices-creator-button");
+      } else if (this.$route.query.panel === "parametres") {
+        this.openPanel("parametres-button");
+      }
+    }, 100)
   },
   methods: {
-    select(id) {
-      selected_buttons = document.querySelectorAll(".selected");
-      for (s of selected_buttons) {
-        s.classList.toggle("selected");
-      }
-      opened_panels = document.querySelectorAll(".open");
-      for (o of opened_panels) {
-        o.classList.toggle("open");
-      }
+    openPanel(id) {
+      window.removeAllClass("selected");
+      window.removeAllClass("subselected");
+      window.removeAllClass("subopen");
       document.querySelector(`#${id}`).classList.add("selected");
-      document.querySelector(`#${this.panelAssociated[id]}`).classList.add("open");
-
+      this.currentPanel = this.buttonsLink[id];
     },
-    test() {
-      console.log("ici");
+    openSubnav(id) {
+      window.removeAllClass("selected");
+      window.removeAllClass("subopen");
+      document.querySelector(`#${id}`).classList.add("selected");
+      document.querySelector(`#${this.buttonsLink[id]}`).classList.add("subopen");
+    },
+    subOpenPanel(id) {
+      window.removeAllClass("subselected");
+      document.querySelector(`#${id}`).classList.add("subselected");
+      this.currentPanel = this.buttonsLink[id];
     }
   }
 }

@@ -38,16 +38,40 @@ router.post("/register", async (req, res) => {
       bcrypt.hash(user.mdp, 10).then((hashPassword) => {
         client.query({
 
-          text: "INSERT INTO users (login, password, prenom, nom, icon, perm) VALUES ($1, $2, $3, $4, $5, $6)",
+          text: "INSERT INTO users (login, password, prenom, nom, icon, perm) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
           values: [user.login, hashPassword, user.prenom, user.nom, default_icon, 0]
 
-        }).then(async () => {
+        }).then(async (result) => {
 
-          res.json({ result: {
-              status: 1,
-              errormessage: ""
-            }
-          })
+          console.log(result);
+          if (result.rows.length > 0) {
+
+            let last_id = result.rows[0].id;
+            req.session.userId = last_id;
+            client.query({
+
+              text: `INSERT INTO exomanager ("user", "exo_begin", "avancement", "exo_create") VALUES ($1, $2, $3, $4)`,
+              values: [last_id, [], [], []]
+
+            }).then(async (result) => {
+
+              res.json({ result: {
+                  status: 1,
+                  errormessage: ""
+                }
+              })
+
+            })
+
+          } else {
+
+            res.json({ result: {
+                status: 0,
+                errormessage: "Mince :/, une erreur est survenue lors de la création de votre compte..."
+              }
+            })
+
+          }
 
         })
       })
@@ -186,5 +210,86 @@ router.delete("/disconnect/", (req, res) => {
   })
 
 })
+
+function checkIfPermitted(req, res, callback) {
+
+  if (req.session.userId !== undefined && req.session.userId !== -1) {
+
+    client.query({
+
+      text: "SELECT perm FROM users WHERE id = $1",
+      values: [req.session.userId]
+
+    }).then(async (result) => {
+
+      if (result.rows.length > 0 && result.rows[0].perm > 0) {
+
+        callback(req, res)
+
+      } else {
+
+        res.json({
+          result: {
+            status: 0,
+            message: "Vous n'avez pas la permission d'effectuer cette action..."
+          }
+        })
+
+      }
+
+    })
+
+  }
+
+}
+
+router.post("/exercice", async (req, res) => {
+
+  let exercice = req.body.exercice;
+  checkIfPermitted(req, res, () => {
+
+    client.query({
+
+      text: "INSERT INTO exercices (title, langage, difficulty, content, creator) VALUES ($1, $2, $3, $4, $5) RETURNING id",
+      values: [exercice.title, exercice.langage, exercice.difficulty, {content: exercice.lines}, exercice.creator]
+
+    }).then(async (result) => {
+
+      if (result.rows.length > 0) {
+
+        let last_id = result.rows[0].id;
+        client.query({
+
+          text: `UPDATE exomanager SET exo_create = array_append(exo_create, $1) WHERE "user" = $2`,
+          values: [last_id, req.session.userId]
+
+        }).then(async (result) => {
+
+          res.json({
+            result: {
+              status: 1,
+              exercicecreate: exercice,
+              message: "Exercice bien créé !"
+            }
+          })
+
+        })
+
+      } else {
+
+        res.json({
+          result: {
+            status: 0,
+            message: "Oups :/, une erreur est apparu sans prévenir lors de la création de votre exercice..."
+          }
+        })
+
+      }
+
+    })
+
+  })
+
+});
 
 module.exports = router

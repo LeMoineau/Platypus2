@@ -11,7 +11,7 @@
         <p v-if="user.perm === 1"> Professeur </p>
       </div>
     </div>
-    <hr class="profil-separator">
+    <hr class="profil-sub-separator">
   </div>
 </template>
 
@@ -35,7 +35,7 @@ module.exports = {
     }
   },
   mounted() {
-    this.user = this.$parent.user
+    this.$emit('me')
   },
   methods: {
 

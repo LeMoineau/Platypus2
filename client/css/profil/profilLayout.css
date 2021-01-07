@@ -26,11 +26,39 @@
 
 }
 
-.profil-nav-button {
+#current-panel {
+
+  overflow: auto;
+
+}
+
+.profil-nav-subnav {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  height: 0;
+  overflow: hidden;
+  transform: translateY(-20%);
+  transition: all 0.2s linear;
+
+}
+
+.profil-nav-subnav.subopen {
+
+  height: auto;
+  transform: translateY(0);
+
+}
+
+.profil-nav-button, .profil-subnav-button {
 
   outline: none;
   border: none;
-  padding: 15px;
+  padding: 15px 30px;
   width: 100%;
   box-sizing: border-box;
   font-size: 17px;
@@ -45,13 +73,20 @@
 
 }
 
-.profil-nav-button:hover, .selected:hover {
+.profil-subnav-button {
+
+  font-size: 15px;
+  margin-top: 10px;
+
+}
+
+.profil-nav-button:hover, .profil-nav-button.selected:hover, .profil-subnav-button:hover, .profil-subnav-button.subselected:hover {
 
   background-color: rgba(206, 210, 211, 0.7);
 
 }
 
-.selected {
+.profil-nav-button.selected, .profil-subnav-button.subselected {
 
   background-color: rgba(196, 200, 201, 0.7);
 
@@ -82,5 +117,12 @@
 .profil-nav-button.selected:hover::before {
 
   background-color: rgba(255, 127, 80,1.0);
+
+}
+
+.profil-separator {
+
+  width: 80%;
+  margin-bottom: 20px;
 
 }

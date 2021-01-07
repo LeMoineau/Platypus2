@@ -18,6 +18,7 @@
         <script src="js/theme-twilight.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Personal scripts -->
+        <script src="js/personal/utils.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Personal styles -->
         <link rel="stylesheet" href="css/global.css">
@@ -28,6 +29,8 @@
         <link rel="stylesheet" href="css/profil/profilLayout.css">
         <link rel="stylesheet" href="css/profil/profil.css">
         <link rel="stylesheet" href="css/profil/panel.css">
+        <link rel="stylesheet" href="css/profil/exercicecreator.css">
+        <link rel="stylesheet" href="css/editor/editor.css">
         <link rel="stylesheet" href="css/footer.css">
     </head>
     <body>
@@ -38,7 +41,7 @@
             </div>
             <nav id="header-nav">
               <router-link to="/" class="header-nav-button">Accueil</router-link>
-              <router-link to="/editor" class="header-nav-button">S'entrainer</router-link>
+              <router-link to="/exohome" class="header-nav-button">S'entrainer</router-link>
               <router-link v-if="!isRegistered" to="/register" class="header-nav-button">Se connecter</router-link>
               <div v-else class="header-nav-button" @click="openProfilNav()">
                 <div class="header-profil-icon" :style="{ backgroundImage: 'url(' + user.icon + ')' }"></div>
@@ -63,6 +66,7 @@
               @login="login"
               @me="me"
               @disconnect="disconnect"
+              @createxercice="createxercice"
             ></router-view>
           </main>
           <footer>
