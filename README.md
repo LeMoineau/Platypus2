@@ -48,4 +48,17 @@ Voilà, maintenant t'es un pro de Git (ou presque) !
     - `prénom`: text
     - `nom`: text 
     - `icon`: text
-    - `perm`: integer 
+    - `perm`: integer
+  - exercices:
+    - `id`: serial
+    - `title`: text
+    - `langage`: text
+    - `difficulty`: integer
+    - `content`: json
+    - `creator`: text
+  - exomanager:
+    - `id`: serial
+    - `user`: integer
+    - `exo_begin`: integer[]
+    - `avancement`: integer[]
+    - `exo_create`: integer[]
