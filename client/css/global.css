@@ -1,6 +1,18 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@300&display=swap');
 
+:root {
+
+  --main-color: #ff6348;
+  --header-height: 50px;
+  --padding-left-right: 20px;
+
+  --page-height: calc(100vh - var(--header-height));
+
+  --footer-height: 50px;
+
+}
+
 html {
 
   scroll-behavior: smooth;
@@ -22,15 +34,17 @@ h1, h2, h3, input, button, a {
 
 }
 
-:root {
+button {
 
-  --main-color: #ff6348;
-  --header-height: 50px;
-  --padding-left-right: 20px;
+  outline: none;
+  cursor: pointer;
 
-  --page-height: calc(100vh - var(--header-height));
+}
 
-  --footer-height: 50px;
+a {
+
+  text-decoration: none;
+  outline: none;
 
 }
 

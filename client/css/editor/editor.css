@@ -62,6 +62,7 @@
 
 #exo-langage[langage="python"] { background-color: #357ab1; color: white; }
 #exo-langage[langage="javascript"] { background-color: #ffd03d; color: white; }
+#exo-langage[langage="c_cpp"] { background-color: #2ed573; color: white; }
 
 #exo-content {
 

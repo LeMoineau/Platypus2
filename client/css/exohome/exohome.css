@@ -1,0 +1,269 @@
+
+#exo-home-global-container {
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--page-height);
+
+}
+
+#exo-home-search-bar {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+
+}
+
+.exo-home-checkbox-button {
+
+  margin: 10px;
+  cursor: pointer;
+  width: fit-content;
+  height: auto;
+  transform: translate(0);
+
+}
+
+.exo-home-checkbox-button-input {
+
+  width: 100px;
+  height: 20px;
+  padding: 10px;
+  opacity: 0;
+  transform: translate(0);
+  cursor: pointer;
+
+}
+
+.exo-home-checkbox-button-tag {
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+
+}
+
+.exo-home-checkbox-button-input:checked + .exo-home-checkbox-button-tag {
+
+  background-color: red;
+
+}
+
+.exo-home-checkbox-button-tag::before {
+
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 3px;
+  opacity: 1;
+
+}
+
+#exo-home-exercices-container {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+
+}
+
+@keyframes exoHomeExerciceEnter {
+  0%{ transform: translateY(20%); opacity: 0; }
+}
+
+.exo-home-exercice {
+
+  width: 350px;
+  height: 250px;
+  background-color: rgba(220, 220, 220, 0.5);
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  margin: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: all 0.2s linear;
+  transform: translate(0);
+  opacity: 1;
+  overflow: hidden;
+  cursor: pointer;
+  background-position: center;
+  background-size: 40%;
+  background-repeat: no-repeat;
+  animation: exoHomeExerciceEnter 0.4s ease-in;
+
+}
+
+.exo-home-exercice:hover {
+
+  background-color: rgba(250, 250, 250, 1);
+
+}
+
+.exo-home-exercice-header {
+
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-wrap: wrap;
+
+}
+
+.exo-home-exercice-title {
+
+  margin: 5px;
+  background-color: rgba(250, 250, 250, 1);
+  width: fit-content;
+  padding: 0 5px;
+  border-radius: 5px;
+
+}
+
+.exo-home-exercice-difficulty {
+
+  margin: 5px;
+  font-weight: bold;
+  background-color: rgba(250, 250, 250, 1);
+  width: fit-content;
+  padding: 0 5px;
+  border-radius: 5px;
+
+}
+
+.exo-home-exercice-infos {
+
+  color: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  height: 50px;
+  transition: all 0.2s linear;
+  z-index: 1;
+
+}
+
+.exo-home-exercice-infos::before {
+
+  position: absolute;
+  content: '';
+  width: 400%;
+  height: 200px;
+  transform: rotateZ(-5deg) translateX(-50%);
+  top: -60px;
+  left: 0;
+  background-color: red;
+  z-index: -1;
+
+}
+
+.exo-home-exercice-infos-creator {
+
+  margin: 5px;
+  background-color: rgba(250, 250, 250, 1);
+  width: fit-content;
+  padding: 0 5px;
+  border-radius: 5px;
+  width: fit-content;
+  font-size: 12px;
+  font-weight: normal;
+
+}
+
+.exo-home-exercice-infos-buttons {
+
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.exo-home-exercice-infos-button {
+
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.2s linear;
+  width: fit-content;
+  padding: 10px 30px;
+  margin: 5px;
+  border-radius: 40px;
+  color: white;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+
+}
+
+.exo-home-exercice-infos-button.work { background-color: #ff7f50; }
+.exo-home-exercice-infos-button.work:hover { background-color: #ff6348; }
+.exo-home-exercice-infos-button.next-time { background-color: #ff6b81; }
+.exo-home-exercice-infos-button.next-time:hover { background-color: #ff4757; }
+
+.exo-home-exercice:hover .exo-home-exercice-infos-button {
+
+  transform: translateX(0);
+  opacity: 1;
+
+}
+
+.exo-home-exercice-infos p {
+
+  margin: 5px;
+
+}
+
+.exo-home-exercice-infos[langage="python"]::before { background-color: #357ab1; }
+.exo-home-exercice-infos[langage="javascript"]::before { background-color: #ffd03d; }
+.exo-home-exercice-infos[langage="c_cpp"]::before { background-color: #2ed573; }
+
+.exo-home-exercice:hover .exo-home-exercice-infos {
+
+  height: 100px;
+
+}
+
+#exo-home-load-more {
+
+  border: none;
+  margin: 30px;
+  width: fit-content;
+  padding: 10px 30px;
+  border-radius: 40px;
+  color: white;
+  border: none;
+  font-size: 17px;
+  cursor: pointer;
+  background-color: #a4b0be;
+  transition: all 0.2s linear;
+
+}
+
+#exo-home-load-more:hover {
+
+  background-color: #747d8c;
+
+}

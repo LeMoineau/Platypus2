@@ -66,7 +66,7 @@
 
 #exercice-creator-difficulty::after {
 
-  content: "Difficulté (0 = facile / 5 = dur)";
+  content: "Difficulté (0 = facile / 5 = démon)";
   position: absolute;
   left: 50%;
   bottom: -25px;
@@ -123,6 +123,8 @@
 #exercice-creator-table tr > td.title:first-child { border-right-color: #f1c40f; }
 #exercice-creator-table tr > td.subtitle:first-child { border-right-color: #1abc9c; }
 #exercice-creator-table tr > td.text:first-child { border-right-color: #9b59b6; }
+#exercice-creator-table tr > td.question:first-child { border-right-color: #70a1ff; }
+#exercice-creator-table tr > td.coderesult:first-child { border-right-color: #2f3542; }
 
 #exercice-creator-table tr > td:not(:first-child) {
 

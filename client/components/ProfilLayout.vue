@@ -23,7 +23,9 @@
       </router-link>
     </nav>
     <div id="current-panel">
-      <component v-bind:is="currentPanel" v-bind:user="user"></component>
+      <keep-alive>
+        <component v-bind:is="currentPanel" v-bind:user="user"></component>
+      </keep-alive>
     </div>
   </div>
 </template>

@@ -79,12 +79,11 @@ var app = new Vue({
       }
     },
     async createxercice(exercice, callback) {
-      if (exercice.anonym) {
-        exercice.creator = "Anonym"
-      } else {
-        exercice.creator = this.user.prenom + " " + this.user.nom;
-      }
       const res = await axios.post('/api/exercice', { exercice: exercice });
+      callback(res.data.result);
+    },
+    async getexercices(last_exo_load, callback) {
+      const res = await axios.get('/api/exercices/' + last_exo_load);
       callback(res.data.result);
     }
   }

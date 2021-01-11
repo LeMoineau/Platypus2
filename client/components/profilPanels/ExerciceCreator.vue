@@ -11,13 +11,12 @@
             <option value="javascript">javascript</option>
             <option value="c_cpp">C / C++</option>
           </select>
+          <input type="text" v-model="icon" placeholder="URL d'icone">
         </div>
       </div>
       <hr class="profil-separator">
       <table id="exercice-creator-table" cellspacing="20px" border="0">
-        <tbody>
-          <tbody v-for="(component, indice) in lines" ref="lines" :key="indice" :is="component"/>
-          </tbody>
+        <tbody v-for="(component, indice) in lines" ref="lines" :key="indice" :is="component"/>
         </tbody>
       </table>
       <div id="exercice-creator-valid-bar">
@@ -52,6 +51,7 @@ module.exports = {
       title: "",
       anonym: true,
       difficulty: 0,
+      icon: "",
       langage: "python",
       lines: ["exercice-creator-line"],
       message: "",
@@ -78,9 +78,18 @@ module.exports = {
           content: line.content
         });
       }
+      let creator = "Anonym";
+      if (!this.anonym) {
+        creator = this.user.prenom + " " + this.user.nom;
+      }
+      let icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Closed_Book_Icon.svg/1200px-Closed_Book_Icon.svg.png";
+      if (this.icon.length > 0) {
+        icon = this.icon;
+      }
       this.$parent.$emit('createxercice', {
         title: this.title,
-        anonym: this.anonym,
+        creator: creator,
+        icon: icon,
         difficulty: this.difficulty,
         langage: this.langage,
         lines: lines

@@ -6,6 +6,8 @@ const { Store } = require('express-session')
 var paiza_io = require('paiza-io')
 
 const default_icon = 'http://getdrawings.com/free-icon/funny-avatars-icons-51.jpg'
+const exo_load_by_time = 10
+
 const client = new Client({
   user: 'postgres',
   host: 'localhost',
@@ -250,8 +252,8 @@ router.post("/exercice", async (req, res) => {
 
     client.query({
 
-      text: "INSERT INTO exercices (title, langage, difficulty, content, creator) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-      values: [exercice.title, exercice.langage, exercice.difficulty, {content: exercice.lines}, exercice.creator]
+      text: "INSERT INTO exercices (title, langage, difficulty, content, creator, icon) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
+      values: [exercice.title, exercice.langage, exercice.difficulty, {content: exercice.lines}, exercice.creator, exercice.icon]
 
     }).then(async (result) => {
 
@@ -286,6 +288,27 @@ router.post("/exercice", async (req, res) => {
 
       }
 
+    })
+
+  })
+
+});
+
+router.get('/exercices/:offset', (req, res) => {
+
+  let offset = req.params.offset;
+  client.query({
+
+    text: "SELECT * FROM exercices LIMIT $1 OFFSET $2",
+    values: [exo_load_by_time, offset]
+
+  }).then(async (result) => {
+
+    res.json({
+      result: {
+        status: 1,
+        exercices: result.rows
+      }
     })
 
   })
