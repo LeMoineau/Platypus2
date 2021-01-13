@@ -28,8 +28,8 @@
         <div class="exo-home-exercice-infos" :langage="exo.langage">
           <p class="exo-home-exercice-infos-langage"> {{ options.langagesAdmit.find(d => d.lang === exo.langage).tag }} </p>
           <div class="exo-home-exercice-infos-buttons">
-            <button class="exo-home-exercice-infos-button work"> Work it ! </button>
-            <button class="exo-home-exercice-infos-button next-time"> Plus tard </button>
+            <button class="exo-home-exercice-infos-button work" @click="work(exo.id)"> Work it ! </button>
+            <button class="exo-home-exercice-infos-button next-time" @click="nextTime(exo.id)"> Plus tard </button>
           </div>
         </div>
       </article>
@@ -75,15 +75,16 @@ module.exports = {
   },
   mounted() {
     this.$emit('me');
-    this.$emit('getexercices', this.last_exo_load, (result) => {
-      this.exercices = result.exercices;
-      this.last_exo_load += result.exercices.length;
-    });
+    this.getexercices();
   },
   methods: {
     getexercices() {
-      this.$emit('getexercices', this.last_exo_load, (result) => {
-        console.log(result);
+      let whereSearch = {
+        lang: makeListFromObject(this.options.langagesAdmit.filter(l => l.active === true), "lang"),
+        difficulty: makeListFromObject(this.options.difficultyAdmit.filter(d => d.active === true), "difficulty"),
+        offset: this.last_exo_load
+      }
+      this.$emit('getexercices', whereSearch, (result) => {
         if (result.exercices.length > 0) {
           for (let exo of result.exercices) {
             this.exercices.push(exo);
@@ -93,7 +94,25 @@ module.exports = {
       });
     },
     search() {
-      console.log("changed !");
+      this.last_exo_load = 0;
+      this.exercices = [];
+      this.getexercices();
+    },
+    work(exoId) {
+      console.log(exoId);
+      this.$emit('work', exoId, (result) => {
+        if (result.status === 1) {
+          console.log(result);
+          location.replace(`#/editor?exercice=${exoId}`);
+        }
+      });
+    },
+    nextTime(exoId) {
+      this.$emit('work', exoId, (result) => {
+        if (result.status === 1) {
+          console.log("ajouter à votre liste de favoris !")
+        }
+      });
     }
   }
 }

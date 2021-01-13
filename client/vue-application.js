@@ -82,8 +82,12 @@ var app = new Vue({
       const res = await axios.post('/api/exercice', { exercice: exercice });
       callback(res.data.result);
     },
-    async getexercices(last_exo_load, callback) {
-      const res = await axios.get('/api/exercices/' + last_exo_load);
+    async getexercices(whereSearch, callback) {
+      const res = await axios.get(`/api/exercices/${whereSearch.offset}/${whereSearch.lang}/${whereSearch.difficulty}`);
+      callback(res.data.result);
+    },
+    async work(exoId, callback) {
+      const res = await axios.post(`/api/work`, {exoId: exoId});
       callback(res.data.result);
     }
   }

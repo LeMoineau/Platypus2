@@ -7,3 +7,13 @@ function removeAllClass(classToRemove) {
   }
 
 }
+
+function makeListFromObject(objects, selector) {
+
+  let list = [];
+  for (let o of objects) {
+    list.push(o[selector]);
+  }
+  return list;
+
+}

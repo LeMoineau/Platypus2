@@ -17,6 +17,90 @@ const client = new Client({
 
 client.connect()
 
+function isConnected(req) {
+  return (req.session.userId !== undefined && req.session.userId !== -1)
+}
+
+function checkIfPermitted(req, res, permissionNeed, callback) {
+
+  if (req.session.userId !== undefined && req.session.userId !== -1) {
+
+    client.query({
+
+      text: "SELECT perm FROM users WHERE id = $1",
+      values: [req.session.userId]
+
+    }).then(async (result) => {
+
+      if (result.rows.length > 0 && permissionNeed(result.rows[0].perm)) {
+
+        callback(req, res)
+
+      } else {
+
+        res.json({
+          result: {
+            status: 0,
+            message: "Vous n'avez pas la permission d'effectuer cette action..."
+          }
+        })
+
+      }
+
+    })
+
+  }
+
+}
+
+router.post("/exercice", async (req, res) => {
+
+  let exercice = req.body.exercice;
+  checkIfPermitted(req, res, (perm) => { perm > 0 }, () => {
+
+    client.query({
+
+      text: "INSERT INTO exercices (title, langage, difficulty, content, creator, icon) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
+      values: [exercice.title, exercice.langage, exercice.difficulty, {content: exercice.lines}, exercice.creator, exercice.icon]
+
+    }).then(async (result) => {
+
+      if (result.rows.length > 0) {
+
+        let last_id = result.rows[0].id;
+        client.query({
+
+          text: `UPDATE exomanager SET exo_create = array_append(exo_create, $1) WHERE "user" = $2`,
+          values: [last_id, req.session.userId]
+
+        }).then(async (result) => {
+
+          res.json({
+            result: {
+              status: 1,
+              exercicecreate: exercice,
+              message: "Exercice bien créé !"
+            }
+          })
+
+        })
+
+      } else {
+
+        res.json({
+          result: {
+            status: 0,
+            message: "Oups :/, une erreur est apparu sans prévenir lors de la création de votre exercice..."
+          }
+        })
+
+      }
+
+    })
+
+  })
+
+});
 
 router.post("/code", async (req, res) => {
       paiza_io('python', 'print "Hello, Python World!"', '', function (error, result) {
@@ -158,7 +242,7 @@ router.post("/disconnect", (req, res) => {
 
 router.get("/me", async (req, res) => {
 
-  if (req.session.userId !== undefined && req.session.userId !== -1) {
+  if (isConnected(req)) {
 
     client.query({
 
@@ -213,94 +297,18 @@ router.delete("/disconnect/", (req, res) => {
 
 })
 
-function checkIfPermitted(req, res, callback) {
-
-  if (req.session.userId !== undefined && req.session.userId !== -1) {
-
-    client.query({
-
-      text: "SELECT perm FROM users WHERE id = $1",
-      values: [req.session.userId]
-
-    }).then(async (result) => {
-
-      if (result.rows.length > 0 && result.rows[0].perm > 0) {
-
-        callback(req, res)
-
-      } else {
-
-        res.json({
-          result: {
-            status: 0,
-            message: "Vous n'avez pas la permission d'effectuer cette action..."
-          }
-        })
-
-      }
-
-    })
-
-  }
-
-}
-
-router.post("/exercice", async (req, res) => {
-
-  let exercice = req.body.exercice;
-  checkIfPermitted(req, res, () => {
-
-    client.query({
-
-      text: "INSERT INTO exercices (title, langage, difficulty, content, creator, icon) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
-      values: [exercice.title, exercice.langage, exercice.difficulty, {content: exercice.lines}, exercice.creator, exercice.icon]
-
-    }).then(async (result) => {
-
-      if (result.rows.length > 0) {
-
-        let last_id = result.rows[0].id;
-        client.query({
-
-          text: `UPDATE exomanager SET exo_create = array_append(exo_create, $1) WHERE "user" = $2`,
-          values: [last_id, req.session.userId]
-
-        }).then(async (result) => {
-
-          res.json({
-            result: {
-              status: 1,
-              exercicecreate: exercice,
-              message: "Exercice bien créé !"
-            }
-          })
-
-        })
-
-      } else {
-
-        res.json({
-          result: {
-            status: 0,
-            message: "Oups :/, une erreur est apparu sans prévenir lors de la création de votre exercice..."
-          }
-        })
-
-      }
-
-    })
-
-  })
-
-});
-
-router.get('/exercices/:offset', (req, res) => {
+router.get('/exercices/:offset/:lang/:difficulty', (req, res) => {
 
   let offset = req.params.offset;
+  let lang = req.params.lang;
+  lang = lang.split(',');
+  let difficulty = req.params.difficulty;
+  difficulty = difficulty.split(',').map(x => +x);
+
   client.query({
 
-    text: "SELECT * FROM exercices LIMIT $1 OFFSET $2",
-    values: [exo_load_by_time, offset]
+    text: "SELECT * FROM exercices WHERE langage = ANY($1) AND difficulty = ANY($2) LIMIT $3 OFFSET $4",
+    values: [lang, difficulty, exo_load_by_time, offset]
 
   }).then(async (result) => {
 
@@ -314,5 +322,41 @@ router.get('/exercices/:offset', (req, res) => {
   })
 
 });
+
+router.post('/work', (req, res) => {
+
+  let exoId = req.body.exoId;
+  console.log(exoId + "-" + req.session.userId);
+
+  if (isConnected(req)) {
+
+    //VERIFIER SI A PAS DEJA CET EXO
+    client.query({
+
+      text: `UPDATE exomanager SET exo_begin = array_append(exo_begin, $1), avancement = array_append(avancement, $2) WHERE "user" = $3`,
+      values: [exoId, 0, req.session.userId]
+
+    }).then(async (result) => {
+
+      res.json({
+        result: {
+          status: 1
+        }
+      })
+
+    })
+
+  } else {
+
+    res.json({
+      result: {
+        status: 0,
+        message: "vous n'êtes pas connecté..."
+      }
+    })
+
+  }
+
+})
 
 module.exports = router
