@@ -11,7 +11,7 @@ const exo_load_by_time = 10
 const client = new Client({
   user: 'postgres',
   host: 'localhost',
-  password: 'ZAZA92izi...',
+  password: '123',
   database: 'IziCode'
  })
 
@@ -56,7 +56,11 @@ function checkIfPermitted(req, res, permissionNeed, callback) {
 router.post("/exercice", async (req, res) => {
 
   let exercice = req.body.exercice;
+<<<<<<< HEAD
   checkIfPermitted(req, res, (perm) => {return perm > 0 }, () => {
+=======
+  checkIfPermitted(req, res, (perm) => { return perm > 0 }, () => {
+>>>>>>> 76fafba9742223c84bd8dd484d48ba561e74924f
 
     client.query({
 
@@ -357,6 +361,37 @@ router.post('/work', (req, res) => {
     })
 
   }
+
+})
+
+router.get('/exercice/:exoid', (req, res) => {
+
+  let exoId = req.params.exoid;
+  client.query({
+
+    text: "SELECT * FROM exercices WHERE id=$1",
+    values: [exoId]
+
+  }).then(async (result) => {
+
+    if (result.rows.length > 0) {
+      res.json({
+        result: {
+          status: 1,
+          exercice: result.rows[0],
+          message: "exercice found !"
+        }
+      })
+    } else {
+      res.json({
+        result: {
+          status: 0,
+          message: "exercice not found"
+        }
+      })
+    }
+
+  })
 
 })
 

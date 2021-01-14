@@ -89,6 +89,10 @@ var app = new Vue({
     async work(exoId, callback) {
       const res = await axios.post(`/api/work`, {exoId: exoId});
       callback(res.data.result);
-    } 
+    },
+    async getexercice(exoId, callback) {
+      const res = await axios.get('/api/exercice/' + exoId);
+      callback(res.data.result);
+    }
   }
 });
