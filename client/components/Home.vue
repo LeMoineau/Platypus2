@@ -1,20 +1,16 @@
 <template>
-  <div id="home-container">
-    <section class="home-header">
-      <h1>Let's train to improve our skills !</h1>
-    </section>
-    <section class="home-section">
-      <div class="home-subsection home-section-img">
-        <img src="" alt="image d'illustration">
-      </div>
-      <div class="home-subsection home-section-para">
-        <h2>Apprenez facilement !</h2>
-        <p>Platypus 2 vous propose de nombreux exercices de tout niveau dans plein de langages différents.</p>
-        <p>Du Python au C++ en passant par Javascript, Platypus 2 sera vous aider à performer dans l'apprentissage des langages façonnant notre Internet !</p>
-        <button type="button" name="button">Se lancer !</button>
+  <section class="home-section">
+      <img src="../css/ressources/c.png" data-speed="-3" class="layer">
+      <img src="../css/ressources/code.png" data-speed="5" class="layer">
+      <img src="../css/ressources/java.png" data-speed="9" class="layer">
+      <img src="../css/ressources/python.png" data-speed="-9" class="layer">
+      <img src="../css/ressources/cpp.png" data-speed="-8" class="layer">
+      <div class="ecrit">
+        <h1>Let's train to improve our skills !</h1>
+        <p>Du Python au C++ en passant par Javascript, IziCode vous aidera a devenir le meilleur</p>
+        <button class="home-button"type="button" name="button"><a href="#/Register">Se lancer !</a></button>
       </div>
     </section>
-  </div>
 </template>
 
 <script>

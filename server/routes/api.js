@@ -11,7 +11,7 @@ const exo_load_by_time = 10
 const client = new Client({
   user: 'postgres',
   host: 'localhost',
-  password: '123',
+  password: 'ZAZA92izi...',
   database: 'IziCode'
  })
 
