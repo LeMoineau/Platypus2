@@ -12,6 +12,47 @@
       </div>
     </div>
     <hr class="profil-separator">
+    <div class="bod">
+      <h1>Mon avancement</h1>
+      <div class="sub-bod">
+        <div class="box">
+          <div class="percent">
+            <svg>
+              <circle cx="70" cy="70" r="70" class="python"></circle>
+              <circle cx="70" cy="70" r="70" class="python"></circle>
+            </svg>
+            <div class="number">
+              <h2>87<span>%</span></h2>
+            </div>
+          </div>
+          <h2 class="text">python</h2>
+        </div>
+        <div class="box">
+          <div class="percent">
+            <svg>
+              <circle cx="70" cy="70" r="70" class="C"></circle>
+              <circle cx="70" cy="70" r="70" class="C"></circle>
+            </svg>
+            <div class="number">
+              <h2>87<span>%</span></h2>
+            </div>
+          </div>
+          <h2 class="text">C/Cpp</h2>
+        </div>
+        <div class="box">
+          <div class="percent">
+            <svg>
+              <circle cx="70" cy="70" r="70" class="JavaScript"></circle>
+              <circle cx="70" cy="70" r="70" class="JavaScript"></circle>
+            </svg>
+            <div class="number">
+              <h2>87<span>%</span></h2>
+            </div>
+          </div>
+          <h2 class="text">JavaScript</h2>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
