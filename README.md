@@ -56,6 +56,7 @@ Voilà, maintenant t'es un pro de Git (ou presque) !
     - `difficulty`: integer
     - `content`: json
     - `creator`: text
+    - `icon`: text
   - exomanager:
     - `id`: serial
     - `user`: integer
