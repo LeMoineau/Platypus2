@@ -38,12 +38,13 @@
         <div id="app">
           <header>
             <div id="header-logo">
-              <img src="css/ressources/logo.png" alt="">
+              <img src="cs/ressources/logo.png" alt="">
               <h2>IziCode</h2>
             </div>
             <nav id="header-nav">
               <router-link to="/" class="header-nav-button">Accueil</router-link>
               <router-link to="/exohome" class="header-nav-button">S'entrainer</router-link>
+              <router-link to="/Ide" class="header-nav-button">IDE</router-link>
               <router-link v-if="!isRegistered" to="/register" class="header-nav-button">Se connecter</router-link>
               <div v-else class="header-nav-button" @click="openProfilNav()">
                 <div class="header-profil-icon" :style="{ backgroundImage: 'url(' + user.icon + ')' }"></div>

@@ -56,7 +56,7 @@ function checkIfPermitted(req, res, permissionNeed, callback) {
 router.post("/exercice", async (req, res) => {
 
   let exercice = req.body.exercice;
-  checkIfPermitted(req, res, (perm) => { perm > 0 }, () => {
+  checkIfPermitted(req, res, (perm) => {return perm > 0 }, () => {
 
     client.query({
 
