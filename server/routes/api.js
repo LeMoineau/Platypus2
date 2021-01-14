@@ -103,7 +103,8 @@ router.post("/exercice", async (req, res) => {
 });
 
 router.post("/code", async (req, res) => {
-      paiza_io('python', 'print "Hello, Python World!"', '', function (error, result) {
+
+      paiza_io('python', 'print "Hello, World!"', '', function (error, result) {
         if (error) throw error;
         console.log('python result:');
         console.log(result.stdout); //=> Hello, Python World!
