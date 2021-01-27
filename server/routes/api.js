@@ -56,11 +56,7 @@ function checkIfPermitted(req, res, permissionNeed, callback) {
 router.post("/exercice", async (req, res) => {
 
   let exercice = req.body.exercice;
-<<<<<<< HEAD
-  checkIfPermitted(req, res, (perm) => {return perm > 0 }, () => {
-=======
   checkIfPermitted(req, res, (perm) => { return perm > 0 }, () => {
->>>>>>> 76fafba9742223c84bd8dd484d48ba561e74924f
 
     client.query({
 
@@ -331,25 +327,45 @@ router.get('/exercices/:offset/:lang/:difficulty', (req, res) => {
 router.post('/work', (req, res) => {
 
   let exoId = req.body.exoId;
-  console.log(exoId + "-" + req.session.userId);
 
   if (isConnected(req)) {
 
-    //VERIFIER SI A PAS DEJA CET EXO
     client.query({
 
-      text: `UPDATE exomanager SET exo_begin = array_append(exo_begin, $1), avancement = array_append(avancement, $2) WHERE "user" = $3`,
-      values: [exoId, 0, req.session.userId]
+      text: `SELECT * FROM exomanager WHERE "user" = $1 AND NOT( $2 = ANY("exo_begin") )`,
+      values: [req.session.userId, exoId]
 
     }).then(async (result) => {
 
-      res.json({
-        result: {
-          status: 1
-        }
-      })
+      if (result.rows.length > 0) {
 
-    })
+        client.query({
+
+          text: `UPDATE exomanager SET exo_begin = array_append(exo_begin, $1), avancement = array_append(avancement, $2) WHERE "user" = $3`,
+          values: [exoId, 0, req.session.userId]
+
+        }).then(async (result) => {
+
+          res.json({
+            result: {
+              status: 1
+            }
+          })
+
+        })
+
+      } else {
+
+        res.json({
+          result: {
+            status: 1,
+            message: "Vous avez déjà commencé cet exercice !"
+          }
+        })
+
+      }
+
+    });
 
   } else {
 
@@ -392,6 +408,53 @@ router.get('/exercice/:exoid', (req, res) => {
     }
 
   })
+
+})
+
+router.get('/profil', (req, res) => {
+
+  if (isConnected(req)) {
+    client.query({
+
+      text: `SELECT * FROM exomanager WHERE "user" = $1`,
+      values: [req.session.userId]
+
+    }).then(async (result) => {
+
+      if (result.rows.length > 0) {
+
+        let row = result.rows[0];
+        res.json({
+          result: {
+            status: 1,
+            exo_begin: row.exo_begin,
+            avancement: row.avancement,
+            exo_create: row.exo_create
+          }
+        })
+
+      } else {
+
+        res.json({
+          result: {
+            status: 1,
+            message: "Oups, une erreur est survenue dans la gestion de notre base de donnée :/"
+          }
+        })
+
+      }
+
+    })
+  } else {
+
+    res.json({
+      result: {
+        status: 0,
+        message: "Vous n'êtes pas connecté :/"
+      }
+    })
+
+  }
 
 })
 

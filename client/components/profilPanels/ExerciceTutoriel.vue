@@ -25,7 +25,7 @@ module.exports = {
     }
   },
   mounted() {
-    this.user = this.$parent.user
+    this.user = this.$parent.user;
   },
   methods: {
 

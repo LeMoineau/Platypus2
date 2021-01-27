@@ -93,6 +93,10 @@ var app = new Vue({
     async getexercice(exoId, callback) {
       const res = await axios.get('/api/exercice/' + exoId);
       callback(res.data.result);
+    },
+    async profilinfos(callback) {
+      const res = await axios.get('/api/profil');
+      callback(res.data.result);
     }
   }
 });

@@ -42,126 +42,100 @@
 
 }
 
-.bod{
+#profil-sub-exercices-begins, #profil-sub-exercices-created, #profil-sub-avancement {
 
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
   flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.sub-bod{
-
-    display: flex;
-    flex-wrap: nowrap;
-}
-
-.box{
-
-  position: relative;
-  width: 300px;
-  height: 400px;
-  display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  flex-direction: column;
-  background: #fff;
-  box-shadow: 0 30px 60px rgba(0,0,0,.2);
-  margin-left: 50px;
-}
-
-.box .percent{
-
-  position: relative;
-  width: 150px;
-  height: 150px;
-}
-
-.box .percent svg{
-
-  position: relative;
-  width: 150px;
-  height: 150px;
-}
-
-.box .percent svg circle{
-
-  width: 150px;
-  height: 150px;
-  fill: none;
-  stroke-width: 10;
-  stroke: #000;
-  transform: translate(5px,5px);
-  stroke-dasharray: 440;
-  stroke-dashoffset: 440;
-  stroke-linecap: round;
-}
-
-.box .percent svg .python:nth-child(1){
-
-    stroke-dashoffset: 0;
-    stroke: #f3f3f3;
-}
-
-.box .percent svg .python:nth-child(2){
-
-    stroke-dashoffset: calc(440 - (440* 87) / 100);
-    stroke: #ff7f50;
-}
-
-.box .percent svg .C:nth-child(1){
-
-    stroke-dashoffset: 0;
-    stroke: #f3f3f3;
-}
-
-.box .percent svg .C:nth-child(2){
-
-    stroke-dashoffset: calc(440 - (440* 20) / 100);
-    stroke: #ff7f50;
-}
-
-.box .percent svg .JavaScript:nth-child(1){
-
-    stroke-dashoffset: 0;
-    stroke: #f3f3f3;
-}
-
-.box .percent svg .JavaScript:nth-child(2){
-
-    stroke-dashoffset: calc(440 - (440* 80) / 100);
-    stroke: #ff7f50;
-}
-
-.box .percent .number{
-
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
+  margin: 10px 0;
+
+}
+
+.profil-sub-section-title {
+
+  width: 80%;
+  min-width: 200px;
+  text-align: left;
+
+}
+
+.profil-sub-exercice-begin, .profil-sub-exercice-create {
+
+  width: 80%;
+  min-width: 200px;
+  border-radius: 10px;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  background-color: rgb(250, 250, 250);
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  padding: 5px 20px;
+  margin: 10px;
+  box-sizing: border-box;
+
+}
+
+.profil-sub-exercice-sub-section {
+
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  color: #111;
+  height: 100%;
+
 }
 
-.box .percent .number h2{
+.profil-sub-exercice-sub-section > * {
 
-  font-size: 48px;
+  margin: 7px;
+
 }
 
-.box .percent .number h2 span{
+.profil-sub-exercice-icon {
 
-  font-size: 24px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+
 }
 
-.box .text{
+.profil-sub-exercice-title {
 
-  padding: 10px 0 0;
-  color: #999;
-  font-weight: 700;
-  letter-spacing: 1px;
+  color: rgb(255, 99, 72);
+
 }
+
+.profil-sub-exercice-lang {
+
+  padding: 5px 15px;
+  border-radius: 40px;
+  background-color: #2ed573;
+  color: white;
+  font-size: 12px;
+
+}
+
+.profil-sub-exercice-lang[lang="javascript"] { background-color: #ffd03d; }
+.profil-sub-exercice-lang[lang="c_cpp"] { background-color: #2ed573; }
+.profil-sub-exercice-lang[lang="python"] { background-color: #357ab1; }
+
+.profil-sub-exercice-avancement {
+
+  width: 100px;
+  background-color: white;
+  border-radius: 40px;
+  border: solid 2px rgb(255, 127, 80);
+  color: transparent;
+  overflow: hidden;
+
+}
+
+.profil-sub-exercice-avancement::before[avancement="0"]

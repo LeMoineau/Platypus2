@@ -99,10 +99,9 @@ module.exports = {
       this.getexercices();
     },
     work(exoId) {
-      console.log(exoId);
       this.$emit('work', exoId, (result) => {
+        console.log(result);
         if (result.status === 1) {
-          console.log(result);
           location.replace(`#/editor?exercice=${exoId}`);
         }
       });
