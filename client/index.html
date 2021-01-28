@@ -43,7 +43,6 @@
             <nav id="header-nav">
               <router-link to="/" class="header-nav-button">Accueil</router-link>
               <router-link to="/exohome" class="header-nav-button">S'entrainer</router-link>
-              <router-link to="/Ide" class="header-nav-button">IDE</router-link>
               <router-link v-if="!isRegistered" to="/register" class="header-nav-button">Se connecter</router-link>
               <div v-else class="header-nav-button" @click="openProfilNav()">
                 <div class="header-profil-icon" :style="{ backgroundImage: 'url(' + user.icon + ')' }"></div>
@@ -54,7 +53,7 @@
               <hr class="header-profil-nav-separator">
               <div class="header-profil-nav-container" @click="openProfilNav()">
                 <router-link to="/profil" class="header-profil-nav-button">Mon profil</router-link>
-                <router-link v-if="user.perm >= 1" to="/profilPanel=exercicecreator" class="header-profil-nav-button">Créer un exercice</router-link>
+                <router-link v-if="user.perm >= 1" to="/profil?panel=exercicecreator" class="header-profil-nav-button">Créer un exercice</router-link>
                 <router-link to="/profil?panel=parametres" class="header-profil-nav-button">Paramètres</router-link>
                 <router-link to="/register?mode=disconnect" class="header-profil-nav-button"> Se déconnecter</router-link>
               </div>
@@ -73,11 +72,12 @@
               @work="work"
               @getexercice="getexercice"
               @profilinfos="profilinfos"
+              @runcode="runcode"
             ></router-view>
           </main>
           <footer>
-            <p><b>Nous contacter par mail: matthieu.hannaia@efrei.net</b></p>
-            <p>powered by <b>IziCode corporation</b></p>
+            <p><b>Contact</b> par pigeons voyageurs</p>
+            <p>powered by <b>Bigstones</b></p>
           </footer>
         </div>
         <script src="/vue-application.js"></script>

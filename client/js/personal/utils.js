@@ -17,3 +17,12 @@ function makeListFromObject(objects, selector) {
   return list;
 
 }
+
+function removeLastNewLine(string) {
+  let lastindex = string.length-1;
+  if (string[lastindex] === '\n') {
+    return string.substr(0, lastindex);
+  } else {
+    return string;
+  }
+}

@@ -57,7 +57,7 @@ module.exports = {
       options: {
         langagesAdmit: [
           {lang: "javascript", active: true, tag: "Javascript"},
-          {lang: "c_cpp", active: true, tag: "C & C++"},
+          {lang: "c_cpp", active: true, tag: "C++"},
           {lang: "python", active: true, tag: "Python"}
         ],
         difficultyAdmit: [

@@ -42,7 +42,7 @@
 
 }
 
-#profil-sub-exercices-begins, #profil-sub-exercices-created, #profil-sub-avancement {
+#profil-sub-exercices-begins, #profil-sub-exercices-created, #profil-sub-progression {
 
   display: flex;
   flex-direction: column;
@@ -51,6 +51,57 @@
   width: 100%;
   height: auto;
   margin: 10px 0;
+
+}
+
+.profil-sub-progression-level-bar {
+
+  transform: translate(0);
+  width: 80%;
+  min-width: 200px;
+  background-color: white;
+  border-radius: 40px;
+  height: 40px;
+  overflow: hidden;
+  margin: 10px 0;
+
+}
+
+.profil-sub-progression-level-bar-layout {
+
+  background-color: #2ecc71;
+  border-radius: 40px;
+  height: 100%;
+  min-width: 10px;
+
+}
+
+.profil-sub-progression-level-bar-lvl {
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: black;
+  left: 15px;
+
+}
+
+.profil-sub-progression-level-bar-xp {
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(100%);
+  opacity: 0;
+  transition: all 0.15s linear;
+  color: black;
+  right: 10px;
+
+}
+
+.profil-sub-progression-level-bar:hover .profil-sub-progression-level-bar-xp {
+
+  transform: translateY(-50%) translateX(0%);
+  opacity: 1;
 
 }
 
@@ -78,6 +129,8 @@
   padding: 5px 20px;
   margin: 10px;
   box-sizing: border-box;
+  transform: translate(0);
+  overflow: hidden;
 
 }
 
@@ -132,10 +185,108 @@
   width: 100px;
   background-color: white;
   border-radius: 40px;
-  border: solid 2px rgb(255, 127, 80);
-  color: transparent;
   overflow: hidden;
+  height: 20px;
+  box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
+  transform: translate(0);
 
 }
 
-.profil-sub-exercice-avancement::before[avancement="0"]
+.profil-sub-exercice-avancement-progress-bar {
+
+  height: 100%;
+  background-color: #2ecc71;
+  min-width: 5px;
+  border-radius: 40px;
+
+}
+
+.profil-sub-exercice-avancement-progress-label {
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  color: black;
+  font-size: 15px;
+
+
+}
+
+.profil-sub-exercice-avancement-only-cours {
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0 5px;
+  color: white;
+  background-color: #f1c40f;
+  font-size: 14px;
+  text-align: center;
+
+}
+
+.profil-sub-exercice-avancement-clear {
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 0 5px;
+  color: white;
+  background-color: #1abc9c;
+  font-size: 14px;
+  text-align: center;
+
+}
+
+.profil-sub-exercice-hover {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(5, 5, 5, 0.3);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: all 0.2s linear;
+  font-size: 17px;
+
+}
+
+.profil-sub-exercice-create:hover .profil-sub-exercice-hover, .profil-sub-exercice-begin:hover .profil-sub-exercice-hover {
+
+  opacity: 1;
+
+}
+
+.profil-sub-exercice-any {
+
+  margin: 10px 0;
+  width: 80%;
+  min-width: 200px;
+  text-align: left;
+  box-sizing: border-box;
+  color: black;
+  font-size: 17px;
+
+}
+
+.profil-sub-exercice-any a {
+
+  font-size: 18px;
+  color: #ff7f50;
+  font-weight: bold;
+  text-decoration: underline;
+
+}

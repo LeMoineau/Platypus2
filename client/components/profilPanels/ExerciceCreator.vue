@@ -9,7 +9,7 @@
           <select id="exercice-creator-langage" v-model="langage" value="python">
             <option value="python">python</option>
             <option value="javascript">javascript</option>
-            <option value="c_cpp">C / C++</option>
+            <option value="c_cpp">C++ (Beta)</option>
           </select>
           <input type="text" v-model="icon" placeholder="URL d'icone">
         </div>

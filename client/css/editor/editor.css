@@ -14,6 +14,7 @@
 
   width: 50%;
   height: var(--page-height);
+  transform: translate(0);
 
 }
 
@@ -34,6 +35,36 @@
   padding: 10px;
   font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
   font-size: 12px;
+  white-space: pre-wrap;
+  overflow: auto;
+
+}
+
+#editor-run-button {
+
+  position: absolute;
+  bottom: calc(20% + 20px);
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  color: white;
+  background-color: #2ecc71;
+  border-radius: 40px;
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.3);
+  border: none;
+  font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotateX(0);
+  transition: all 0.2s ease-in-out;
+
+}
+
+#editor-run-button:hover {
+
+  transform: scale(0.9);
 
 }
 
@@ -57,12 +88,6 @@
   background-color: rgba(46, 213, 115,1.0);
   color: white;
 }
-#reponse{
-
-  margin-left: 20px;
-  padding: 5px 10px;
-  border-radius: 20px;
-}
 
 #exo-langage[langage="python"] { background-color: #357ab1; color: white; }
 #exo-langage[langage="javascript"] { background-color: #ffd03d; color: white; }
@@ -75,6 +100,8 @@
   padding-bottom: 50px;
 
 }
+
+/* Ajouter ici les styles des éléments que l'on peut ajouter avec la forme 'exo-content-XXXX' */
 
 .exo-content-title {
 

@@ -13,7 +13,17 @@
     </div>
     <hr class="profil-separator">
     <div id="profil-sub-progression">
-
+      <div v-for="(lang, i) in langagesAdmit" :key="i" class="profil-sub-progression-level-bar">
+        <div class="profil-sub-progression-level-bar-layout"
+          :style="{ width: (lang.xp/lang.toNextLevel) * 100 + '%', backgroundColor: lang.color }">
+        </div>
+        <div class="profil-sub-progression-level-bar-lvl">
+          <b> {{ lang.tag }} </b> - Niveau {{ lang.lvl }}
+        </div>
+        <div class="profil-sub-progression-level-bar-xp">
+          {{ lang.xp }} / {{ lang.toNextLevel }}
+        </div>
+      </div>
     </div>
     <hr class="profil-separator">
     <div id="profil-sub-exercices-begins">
@@ -27,12 +37,30 @@
         </span>
         <span class="profil-sub-exercice-sub-section">
           <p> {{ difficultyAdmit.find(d => d.difficulty == exo.difficulty).tag }} </p>
-          <p class="profil-sub-exercice-avancement"> {{ exo.avancement }} </p>
+          <div class="profil-sub-exercice-avancement">
+            <div v-if="exo.progress !== 'none' && exo.progress < 100" class="profil-sub-exercice-avancement-progress-bar"
+               :style="{ width: exo.progress + '%' }">
+            </div>
+            <div v-if="exo.progress !== 'none' && exo.progress < 100" class="profil-sub-exercice-avancement-progress-label">
+              {{ exo.progress }}%
+            </div>
+            <div v-if="exo.progress !== 'none' && exo.progress >= 100" class="profil-sub-exercice-avancement-clear">
+              Finit !
+            </div>
+            <div v-else class="profil-sub-exercice-avancement-only-cours"> Cours </div>
+          </div>
         </span>
+        <router-link :to="'/editor?exercice=' + exo.id" class="profil-sub-exercice-hover">
+          Travailler l'exercice
+        </router-link>
       </div>
+      <p v-if="exercices_begins.length <= 0" class="profil-sub-exercice-any">
+        Vous n'avez encore commencé aucun exercice...
+        <router-link to="/exohome">Commencer l'entrainement !</router-link>
+      </p>
     </div>
-    <hr class="profil-separator">
-    <div id="profil-sub-exercices-created" style="padding-bottom: 30px;">
+    <hr v-if="user.perm > 0" class="profil-separator">
+    <div v-if="user.perm > 0" id="profil-sub-exercices-created" style="padding-bottom: 30px;">
       <h1 class="profil-sub-section-title"> Exercices créés </h1>
       <div v-for="(exo, index) in exercices_created" :key="index" class="profil-sub-exercice-create">
         <span class="profil-sub-exercice-sub-section">
@@ -44,7 +72,14 @@
         <span class="profil-sub-exercice-sub-section">
           <p> {{ difficultyAdmit.find(d => d.difficulty == exo.difficulty).tag }} </p>
         </span>
+        <div class="profil-sub-exercice-hover">
+          Modifier l'exercice
+        </div>
       </div>
+      <p v-if="exercices_created.length <= 0" class="profil-sub-exercice-any">
+        Vous n'avez créé aucun exercice...
+        <router-link to="/profil?panel=exercicecreator">Créer un exercice !</router-link>
+      </p>
     </div>
   </div>
 </template>
@@ -76,9 +111,9 @@ module.exports = {
         {difficulty: 5, active: true, tag: "démon 💀"}
       ],
       langagesAdmit: [
-        {lang: "javascript", active: true, tag: "JS"},
-        {lang: "c_cpp", active: true, tag: "C & C++"},
-        {lang: "python", active: true, tag: "Python"}
+        {lang: "javascript", tag: "JS", xp: 0, lvl: 1, toNextLevel: 2, color: "#ffd03d"},
+        {lang: "c_cpp", tag: "C++", xp: 0, lvl: 1, toNextLevel: 2, color: "#2ed573"},
+        {lang: "python", tag: "Python", xp: 0, lvl: 1, toNextLevel: 2, color: "#357ab1"}
       ]
     }
   },
@@ -93,8 +128,24 @@ module.exports = {
           let tmpExo;
           this.$parent.$emit('getexercice', exoId, (result2) => {
             if (result2.status == 1) {
+              //Modify exercice
               tmpExo = result2.exercice;
               tmpExo.avancement = avancement;
+              //Level managed
+              let selectedLang = this.langagesAdmit.find(l => l.lang === tmpExo.langage);
+              selectedLang.xp += avancement;
+              while (selectedLang.xp >= selectedLang.toNextLevel) {
+                selectedLang.lvl++;
+                selectedLang.toNextLevel = Math.round(4.5 - 3.839286*selectedLang.lvl + 1.875*selectedLang.lvl**2);
+              }
+              //level progression calculation
+              let coderesults = tmpExo.content.content.filter(c => c.type == "coderesult");
+              if (coderesults.length > 0) {
+                tmpExo.progress = (avancement/coderesults.length) * 100;
+              } else {
+                tmpExo.progress = "none";
+              }
+              //Adding
               this.exercices_begins.push(tmpExo);
             }
           })

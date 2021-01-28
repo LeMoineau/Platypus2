@@ -97,6 +97,10 @@ var app = new Vue({
     async profilinfos(callback) {
       const res = await axios.get('/api/profil');
       callback(res.data.result);
+    },
+    async runcode(codeinfos, callback) {
+      const res = await axios.post('/api/code', codeinfos);
+      callback(res.data.result);
     }
   }
 });
