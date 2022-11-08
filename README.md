@@ -1,4 +1,4 @@
-# Platypus 2 (faudrait trouver un vrai nom mdr)
+# Platypus 2
 
 ## Install & Start
 
